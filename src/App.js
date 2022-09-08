@@ -1,10 +1,15 @@
+import Home from "./components/home/Home";
+import Layout from "./components/layout/Layout";
+import { DataProvider } from "./utils/context/DataContext";
 import "./styles/styles.scss";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Weather forcast</h1>
-    </div>
+    <DataProvider>
+      <Layout>
+        <Home />
+      </Layout>
+    </DataProvider>
   );
 }
 

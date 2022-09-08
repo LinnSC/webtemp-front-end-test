@@ -1,28 +1,28 @@
 h1 {
   font-weight: 700;
-  font-size: 3rem;
-  text-align: center;
+  font-size: 2rem;
+
   margin-bottom: 3rem;
   color: $dark-colour;
   @include media(">=tablet") {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 }
 
-h2 {
-  font-weight: 600;
-  font-size: 1.7rem;
-  margin-bottom: 1rem;
-  color: $primary-colour;
-  @include media(">=tablet") {
-    font-size: 2rem;
-  }
-}
+// h2 {
+//   font-weight: 600;
+//   font-size: 1.7rem;
+//   margin-bottom: 1rem;
+//   color: $primary-colour;
+//   @include media(">=tablet") {
+//     font-size: 2rem;
+//   }
+// }
 
 p {
   margin: 0;
   font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 1rem;
   @include media(">=tablet") {
     font-size: 1.5rem;
   }

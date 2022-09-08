@@ -8,7 +8,7 @@ function Heading({ size = "1", children }) {
 
 Heading.propTypes = {
   size: PropTypes.string.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Heading;
