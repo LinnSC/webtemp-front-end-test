@@ -1,8 +1,8 @@
 export default function Layout({ children }) {
   return (
     <>
-      <div className="flex justify-content-center">
-        <div>{children}</div>
+      <div className="wrapper">
+        <div className="container">{children}</div>
       </div>
     </>
   );

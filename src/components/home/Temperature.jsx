@@ -11,12 +11,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../utils/constants/TemperatureValidation";
 import { classNames } from "primereact/utils";
+import { Chart } from "primereact/chart";
 
 function Temperature() {
   const [temp, setTemp] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [data, setData] = useContext(DataContext);
+  const [lat, setLat] = useState("0");
+  const [lon, setLon] = useState("0");
+  // const [data, setData] = useContext(DataContext);
 
   const defaultValues = {
     lat: "",
@@ -31,23 +34,17 @@ function Temperature() {
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   function onSubmit(values) {
-    // console.log(values.lat);
-    // console.log(values.lon);
+    // setData(values);
 
-    setData(values);
+    const latData = values.lat;
+    setLat(latData);
 
-    // const latData = values.lat;
-    // setLat(latData);
-
-    // const lonData = values.lon;
-    // setLon(lonData);
+    const lonData = values.lon;
+    setLon(lonData);
 
     reset();
 
-    const LAT = data.lat;
-    const LON = data.lon;
-
-    const weatherUrl = BASE_URL + LAT_PARAM + LAT + LON_PARAM + LON;
+    const weatherUrl = BASE_URL + LAT_PARAM + lat + LON_PARAM + lon;
 
     async function fetchTemperature() {
       try {
@@ -57,10 +54,6 @@ function Temperature() {
           const json = await response.json();
 
           const data = json.properties.timeseries;
-          console.log(json);
-          console.log(data);
-
-          console.log(weatherUrl);
 
           setTemp(data);
         } else {
@@ -78,13 +71,13 @@ function Temperature() {
     //   return <div className="loader"></div>;
     // }
 
-    // if (error) {
-    //   return (
-    //     <div>
-    //       <h2>{error}</h2>
-    //     </div>
-    //   );
-    // }
+    if (error) {
+      return (
+        <div>
+          <h2>{error}</h2>
+        </div>
+      );
+    }
   }
 
   const getFormErrorMessage = (name) => {
@@ -92,6 +85,61 @@ function Temperature() {
       errors[name] && <small className="p-error">{errors[name].message}</small>
     );
   };
+
+  const temperature = temp.map((x) => x.time);
+
+  console.log(temperature);
+
+  const [tempData] = useState({
+    labels: temperature,
+    datasets: [
+      {
+        label: "Temperature",
+        data: temp.map((x) => x.data.instant.details.air_temperature),
+        fill: false,
+        borderColor: "#42A5F5",
+        tension: 0.4,
+      },
+    ],
+  });
+
+  const getLightTheme = () => {
+    let basicOptions = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.6,
+      plugins: {
+        legend: {
+          labels: {
+            color: "#495057",
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: "#495057",
+          },
+          grid: {
+            color: "#ebedef",
+          },
+        },
+        y: {
+          ticks: {
+            color: "#495057",
+          },
+          grid: {
+            color: "#ebedef",
+          },
+        },
+      },
+    };
+
+    return {
+      basicOptions,
+    };
+  };
+
+  const { basicOptions } = getLightTheme();
 
   return (
     <>
@@ -120,6 +168,11 @@ function Temperature() {
 
         <Button type="submit" label="Submit" />
       </form>
+
+      <div className="card">
+        <h5>Basic</h5>
+        <Chart type="line" data={tempData} options={basicOptions} />
+      </div>
 
       <ul>
         {temp.slice(0, 24).map((temp) => {
