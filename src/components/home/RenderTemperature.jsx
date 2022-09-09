@@ -11,9 +11,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../utils/constants/TemperatureValidation";
 import { classNames } from "primereact/utils";
-import { Chart } from "primereact/chart";
+import TemperatureChart from "../Charts/TemperatureChart";
 
-function Temperature() {
+export default function RenderTemperature() {
   const [temp, setTemp] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -82,64 +82,35 @@ function Temperature() {
 
   const getFormErrorMessage = (name) => {
     return (
-      errors[name] && <small className="p-error">{errors[name].message}</small>
+      errors[name] && <span className="error-msg">{errors[name].message}</span>
     );
   };
 
-  const temperature = temp.map((x) => x.time);
+  // const temperature = temp.map((x) => x.time);
 
-  console.log(temperature);
+  const temperature = ["11", "2", "8", "14", "15", "10", "20", "30"];
 
+  const time = [
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+  ];
   const [tempData] = useState({
-    labels: temperature,
+    labels: time,
     datasets: [
       {
         label: "Temperature",
-        data: temp.map((x) => x.data.instant.details.air_temperature),
+        data: temperature,
         fill: false,
         borderColor: "#42A5F5",
-        tension: 0.4,
       },
     ],
   });
-
-  const getLightTheme = () => {
-    let basicOptions = {
-      maintainAspectRatio: false,
-      aspectRatio: 0.6,
-      plugins: {
-        legend: {
-          labels: {
-            color: "#495057",
-          },
-        },
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: "#495057",
-          },
-          grid: {
-            color: "#ebedef",
-          },
-        },
-        y: {
-          ticks: {
-            color: "#495057",
-          },
-          grid: {
-            color: "#ebedef",
-          },
-        },
-      },
-    };
-
-    return {
-      basicOptions,
-    };
-  };
-
-  const { basicOptions } = getLightTheme();
 
   return (
     <>
@@ -168,11 +139,7 @@ function Temperature() {
 
         <Button type="submit" label="Submit" />
       </form>
-
-      <div className="card">
-        <h5>Basic</h5>
-        <Chart type="line" data={tempData} options={basicOptions} />
-      </div>
+      <TemperatureChart data={tempData} />
 
       <ul>
         {temp.slice(0, 24).map((temp) => {
@@ -193,5 +160,3 @@ function Temperature() {
     </>
   );
 }
-
-export default Temperature;

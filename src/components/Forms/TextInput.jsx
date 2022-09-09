@@ -24,7 +24,7 @@ import { classNames } from "primereact/utils";
 
 export default function TextInput({ label, className, control, name }) {
   return (
-    <>
+    <div className="input-wrapper">
       <label htmlFor={name} className={className}>
         {label}
       </label>
@@ -41,7 +41,7 @@ export default function TextInput({ label, className, control, name }) {
           />
         )}
       />
-    </>
+    </div>
   );
 }
 
