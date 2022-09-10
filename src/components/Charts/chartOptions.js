@@ -1,29 +1,29 @@
-export function chartOptions() {
+export default function chartOptions() {
   let tempOptions = {
     maintainAspectRatio: false,
-    aspectRatio: 0.6,
+    aspectRatio: 0.5,
     plugins: {
       legend: {
         labels: {
-          color: "#495057",
+          color: "#0b655b",
         },
       },
     },
     scales: {
       x: {
         ticks: {
-          color: "#495057",
+          color: "#0b655b",
         },
         grid: {
-          color: "#ebedef",
+          color: "#C2D6D8",
         },
       },
       y: {
         ticks: {
-          color: "#495057",
+          color: "#0b655b",
         },
         grid: {
-          color: "#ebedef",
+          color: "#C2D6D8",
         },
       },
     },
@@ -33,39 +33,3 @@ export function chartOptions() {
     tempOptions,
   };
 }
-
-// const getMyTheme = () => {
-//   let tempOptions = {
-//     maintainAspectRatio: false,
-//     aspectRatio: 0.6,
-//     plugins: {
-//       legend: {
-//         labels: {
-//           color: "#495057",
-//         },
-//       },
-//     },
-//     scales: {
-//       x: {
-//         ticks: {
-//           color: "#495057",
-//         },
-//         grid: {
-//           color: "#ebedef",
-//         },
-//       },
-//       y: {
-//         ticks: {
-//           color: "#495057",
-//         },
-//         grid: {
-//           color: "#ebedef",
-//         },
-//       },
-//     },
-//   };
-
-//   return {
-//     tempOptions,
-//   };
-// };

@@ -20,6 +20,7 @@ html {
 body {
   font-family: "Rubik", sans-serif;
   margin: 0;
+  padding-bottom: 100px;
   display: grid;
   grid-template-rows: auto 1fr auto;
   background-color: var(--surface-50);
@@ -32,37 +33,26 @@ h1 {
 
   margin-bottom: 3rem;
   color: var(--teal-500);
+
+  @include media(">=tablet") {
+    font-size: 2.7rem;
+  }
 }
 
-// @include media(">=tablet") {
-//   color: greenyellow;
-// }
-
-// .loader {
-//   display: flex;
-//   justify-content: center;
-
-//   &:after {
-//     content: "";
-//     width: 80px;
-//     height: 80px;
-//     border: 8px solid $secondary-colour;
-//     border-top: 8px solid $primary-colour;
-//     border-radius: 50%;
-//     animation: loading 1s linear infinite;
-//   }
-// }
-// @keyframes loading {
-//   to {
-//     transform: rotate(1turn);
-//   }
-// }
-
-// .container {
-//   margin: 100px 0 70px 0;
-//   max-width: 1200px;
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: column;
-//   align-items: center;
-// }
+// Loader
+@keyframes p-progress-spinner-color {
+  100%,
+  0% {
+    stroke: var(--teal-200);
+  }
+  40% {
+    stroke: var(--teal-400);
+  }
+  66% {
+    stroke: var(--teal-600);
+  }
+  80%,
+  90% {
+    stroke: var(--teal-800);
+  }
+}

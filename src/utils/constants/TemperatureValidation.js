@@ -1,10 +1,5 @@
 import * as yup from "yup";
-
-const LAT_MIN = -90;
-const LAT_MAX = 90;
-
-const LON_MIN = -180;
-const LON_MAX = 180;
+import { LAT_MIN, LAT_MAX, LON_MIN, LON_MAX } from "./registration";
 
 export const schema = yup.object().shape({
   lat: yup

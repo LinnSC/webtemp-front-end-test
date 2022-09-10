@@ -1,7 +1,5 @@
-import React, { useState, useContext } from "react";
 import TextInput from "./TextInput";
 import { Button } from "primereact/button";
-import FormStyles from "./form.module.scss";
 
 import PropTypes from "prop-types";
 
@@ -15,7 +13,7 @@ export default function TemperatureForm({
     <div className="flex  justify-content-center ">
       <form
         onSubmit={onSubmit}
-        className="flex flex-column justify-content-center row-gap-2 md:row-gap-4  w-12 sm:w-10 lg:w-7 xl:w-6"
+        className="flex flex-column justify-content-center row-gap-3 md:row-gap-5 w-12 sm:w-10 lg:w-7 xl:w-6"
       >
         <div className="flex flex-column">
           <TextInput label="Latitude" control={control} name="lat" />
@@ -26,7 +24,7 @@ export default function TemperatureForm({
           {errorMsgLon}
         </div>
 
-        <Button type="submit" label="Submit" />
+        <Button type="submit" label="Submit" className="mt-2 md:mt-0" />
       </form>
     </div>
   );

@@ -1,18 +1,16 @@
 import React from "react";
-import RenderTemperature from "./RenderTemperature";
 import Heading from "../layout/Heading";
 import Layout from "../layout/Layout";
-import FetchTemp from "./FetchTemp";
-import RenderData from "./getTemp";
+import RenderWeather from "./RenderWeather";
 
 export default function Home() {
   return (
     <Layout>
-      <Heading size="1" className="text-center">
+      <Heading size="1" className="text-center mt-6">
         Weather app
       </Heading>
 
-      <FetchTemp />
+      <RenderWeather />
     </Layout>
   );
 }
