@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BASE_URL, LAT_PARAM, LON_PARAM } from "../../utils/constants/api";
-import { USER_AGENT } from "../../utils/constants/headers";
+import { header } from "../../utils/constants/headers";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../utils/constants/TemperatureValidation";
@@ -9,11 +9,6 @@ import AlertMessage from "../common/AlertMessage";
 import TemperatureForm from "../Forms/TemperatureForm";
 import Loader from "../common/Loader";
 
-const header = {
-  headers: {
-    "User-Agent": `${USER_AGENT}`,
-  },
-};
 const defaultValue = "0";
 const errorMessage = "An error occured";
 
@@ -44,17 +39,18 @@ export default function RenderWeather() {
   }
 
   // Chart
-  const [chartData, setChartData] = useState({});
-  const weatherUrl = BASE_URL + LAT_PARAM + lat + LON_PARAM + lon;
+
+  const WEATHER_URL = BASE_URL + LAT_PARAM + lat + LON_PARAM + lon;
+
+  const [chartData, setChartData] = useState({
+    datasets: [],
+  });
 
   useEffect(
     function () {
       async function fetchTemperature() {
-        let timeArray = [];
-        let temperatureArray = [];
-
         try {
-          const response = await fetch(weatherUrl, header);
+          const response = await fetch(WEATHER_URL, header);
 
           if (response.ok) {
             const json = await response.json();
@@ -66,19 +62,15 @@ export default function RenderWeather() {
               .slice(0, 24)
               .map((res) => res.data.instant.details.air_temperature);
 
-            timeArray.push(time);
-            temperatureArray.push(temperature);
-
             setChartData({
-              labels: timeArray,
+              labels: time,
               datasets: [
                 {
                   label: "Temperature per hour",
-                  data: temperatureArray,
-                  fill: false,
-                  tension: 0.1,
-                  borderColor: "#E5B073",
+                  data: temperature,
                   backgroundColor: "rgba(229, 176, 115, 0.919)",
+                  borderColor: "#E5B073",
+                  borderWidth: 2,
                 },
               ],
             });
@@ -93,7 +85,7 @@ export default function RenderWeather() {
       }
       fetchTemperature();
     },
-    [weatherUrl]
+    [WEATHER_URL]
   );
 
   const getFormErrorMessage = (name) => {
