@@ -4,28 +4,12 @@ import { InputText } from "primereact/inputtext";
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
 
-// export default function TextInput({ value, onChange, title, id }) {
-//   return (
-//     <>
-//       <label htmlFor={id} className="block input-label">
-//         {title}
-//       </label>
-//       <InputText className="block" id={id} value={value} onChange={onChange} />
-//     </>
-//   );
-// }
+import FormStyles from "./form.module.scss";
 
-// TextInput.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   id: PropTypes.string.isRequired,
-//   onChange: PropTypes.func,
-//   value: PropTypes.node,
-// };
-
-export default function TextInput({ label, className, control, name }) {
+export default function TextInput({ label, control, name }) {
   return (
-    <div className="input-wrapper">
-      <label htmlFor={name} className={className}>
+    <div className="flex flex-column">
+      <label htmlFor={name} className={`mb-2 ${FormStyles.inputLabel}`}>
         {label}
       </label>
       <Controller
@@ -36,7 +20,6 @@ export default function TextInput({ label, className, control, name }) {
           <InputText
             id={field.name}
             {...field}
-            autoFocus
             className={classNames({ "p-invalid": fieldState.error })}
           />
         )}
@@ -45,9 +28,7 @@ export default function TextInput({ label, className, control, name }) {
   );
 }
 
-// TextInput.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   id: PropTypes.string.isRequired,
-//   onChange: PropTypes.func,
-//   value: PropTypes.node,
-// };
+TextInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};

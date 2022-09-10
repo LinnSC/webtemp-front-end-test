@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Heading from "../layout/Heading";
 import { TbTemperatureCelsius } from "react-icons/tb";
 import { BASE_URL, LAT_PARAM, LON_PARAM } from "../../utils/constants/api";
-import Moment from "react-moment";
 import Paragraph from "../layout/Paragraph";
-import DataContext from "../../utils/context/DataContext";
 import TextInput from "../Forms/TextInput";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
@@ -15,11 +13,9 @@ import TemperatureChart from "../Charts/TemperatureChart";
 
 export default function RenderTemperature() {
   const [temp, setTemp] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [lat, setLat] = useState("0");
-  const [lon, setLon] = useState("0");
-  // const [data, setData] = useContext(DataContext);
+  const [lat, setLat] = useState([]);
+  const [lon, setLon] = useState([]);
 
   const defaultValues = {
     lat: "",
@@ -34,8 +30,6 @@ export default function RenderTemperature() {
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   function onSubmit(values) {
-    // setData(values);
-
     const latData = values.lat;
     setLat(latData);
 
@@ -61,15 +55,9 @@ export default function RenderTemperature() {
         }
       } catch (error) {
         setError(error.toString());
-      } finally {
-        setLoading(false);
       }
     }
     fetchTemperature();
-
-    // if (loading) {
-    //   return <div className="loader"></div>;
-    // }
 
     if (error) {
       return (

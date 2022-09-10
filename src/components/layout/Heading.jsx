@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
 
-function Heading({ size = "1", children }) {
+function Heading({ size = "1", children, className }) {
   const Heading = `h${size}`;
 
-  return <Heading>{children}</Heading>;
+  return <Heading className={className}>{children}</Heading>;
 }
 
 Heading.propTypes = {
   size: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  className: PropTypes.node,
 };
 
 export default Heading;

@@ -1,15 +1,13 @@
 import Home from "./components/home/Home";
 import Layout from "./components/layout/Layout";
-import { DataProvider } from "./utils/context/DataContext";
-import "./styles/styles.scss";
+
+import "./styles/global.scss";
 
 function App() {
   return (
-    <DataProvider>
-      <Layout>
-        <Home />
-      </Layout>
-    </DataProvider>
+    <Layout>
+      <Home />
+    </Layout>
   );
 }
 

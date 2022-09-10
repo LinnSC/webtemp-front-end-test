@@ -1,22 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
-import Heading from "../layout/Heading";
-import { TbTemperatureCelsius } from "react-icons/tb";
+import React, { useState, useEffect } from "react";
 import { BASE_URL, LAT_PARAM, LON_PARAM } from "../../utils/constants/api";
-import Moment from "react-moment";
-import Paragraph from "../layout/Paragraph";
-import DataContext from "../../utils/context/DataContext";
 import TextInput from "../Forms/TextInput";
 import { Button } from "primereact/button";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../utils/constants/TemperatureValidation";
 import { classNames } from "primereact/utils";
-import { Chart } from "primereact/chart";
 import TemperatureChart from "../Charts/TemperatureChart";
-import axios from "axios";
+import AlertMessage from "../common/AlertMessage";
+import TemperatureForm from "../Forms/TemperatureForm";
 
 export default function RenderTemperature() {
-  const [temp, setTemp] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lat, setLat] = useState("0");
@@ -32,7 +26,7 @@ export default function RenderTemperature() {
     control,
     formState: { errors },
     handleSubmit,
-    reset,
+    // reset,
   } = useForm({ resolver: yupResolver(schema), defaultValues });
 
   function onSubmit(values) {
@@ -41,107 +35,82 @@ export default function RenderTemperature() {
 
     const lonData = values.lon;
     setLon(lonData);
-
-    // reset();
-
-    chart();
   }
 
   // Chart
   const [chartData, setChartData] = useState({});
-  const [time, setTime] = useState([]);
-  const [temperature, setTemperature] = useState([]);
 
   const weatherUrl = BASE_URL + LAT_PARAM + lat + LON_PARAM + lon;
 
-  const chart = () => {
-    let timeArray = [];
-    let temperatureArray = [];
-    axios
-      .get(weatherUrl)
-      .then((data) => {
-        const results = data.data.properties.timeseries;
+  useEffect(
+    function () {
+      // setLoading(true);
+      async function fetchTemperature() {
+        let timeArray = [];
+        let temperatureArray = [];
 
-        console.log(results);
+        try {
+          const response = await fetch(weatherUrl);
+          console.log(response);
+          console.log(weatherUrl);
 
-        const time = results.slice(0, 24).map((x) => x.time);
+          if (response.ok) {
+            const json = await response.json();
 
-        const temperature = results
-          .slice(0, 24)
-          .map((x) => x.data.instant.details.air_temperature);
+            const results = json.properties.timeseries;
+            console.log(results);
 
-        timeArray.push(time);
-        temperatureArray.push(temperature);
+            const time = results.slice(0, 24).map((x) => x.time);
+            const temperature = results
+              .slice(0, 24)
+              .map((x) => x.data.instant.details.air_temperature);
 
-        setChartData({
-          labels: timeArray,
-          datasets: [
-            {
-              label: "Temperature per hour",
-              data: temperatureArray,
-              fill: false,
-              tension: 0.1,
-              borderColor: "#42A5F5",
-            },
-          ],
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+            timeArray.push(time);
+            temperatureArray.push(temperature);
+
+            setChartData({
+              labels: timeArray,
+              datasets: [
+                {
+                  label: "Temperature per hour",
+                  data: temperatureArray,
+                  fill: false,
+                  tension: 0.1,
+                  borderColor: "#42A5F5",
+                },
+              ],
+            });
+          } else {
+            setError("An error occured.");
+          }
+        } catch (error) {
+          setError(error.toString());
+        }
+      }
+      fetchTemperature();
+    },
+    [weatherUrl]
+  );
 
   const getFormErrorMessage = (name) => {
     return (
-      errors[name] && <span className="error-msg">{errors[name].message}</span>
+      errors[name] && (
+        <small className="p-error block mt-2">{errors[name].message}</small>
+      )
     );
   };
 
   return (
     <>
-      <form
+      <TemperatureForm
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-column row-gap-2 md:row-gap-4 "
-      >
-        <div>
-          <TextInput
-            label="Latitude"
-            className={classNames({ "p-error": errors.name })}
-            control={control}
-            name="lat"
-          />
-          {getFormErrorMessage("lat")}
-        </div>
-        <div>
-          <TextInput
-            label="Longitude"
-            className={classNames({ "p-error": errors.name })}
-            control={control}
-            name="lon"
-          />
-          {getFormErrorMessage("lon")}
-        </div>
+        control={control}
+        errorMsgLat={getFormErrorMessage("lat")}
+        errorMsgLon={getFormErrorMessage("lon")}
+      />
+      {error ? <AlertMessage severity="error" text={error} /> : ""}
 
-        <Button type="submit" label="Submit" />
-      </form>
       <TemperatureChart data={chartData} />
     </>
   );
 }
-
-// <ul>
-// {temp.slice(0, 24).map((temp) => {
-//   return (
-//     <li key={temp.time}>
-//       <Paragraph>
-//         {temp.data.instant.details.air_temperature}
-//         <TbTemperatureCelsius />
-//       </Paragraph>
-//       <Paragraph>
-//         {temp.time}
-
-//       </Paragraph>
-//     </li>
-//   );
-// })}
-//

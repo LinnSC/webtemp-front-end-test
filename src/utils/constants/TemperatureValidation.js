@@ -1,10 +1,4 @@
 import * as yup from "yup";
-// import {
-//   EMAIL_REGEX,
-//   MIN_FIRST_NAME_CHARACTERS,
-//   MIN_LAST_NAME_CHARACTERS,
-//   MIN_MESSAGE_CHARACTERS,
-// } from "../../constants/registration";
 
 const LAT_MIN = -90;
 const LAT_MAX = 90;
