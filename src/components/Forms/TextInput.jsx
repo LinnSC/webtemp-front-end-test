@@ -8,7 +8,7 @@ import FormStyles from "./Form.module.scss";
 export default function TextInput({ label, control, name }) {
   return (
     <div className="flex flex-column">
-      <label htmlFor={name} className={`mb-2 ${FormStyles.inputLabel}`}>
+      <label htmlFor={name} className={`mb-2 ${FormStyles.label}`}>
         {label}
       </label>
       <Controller

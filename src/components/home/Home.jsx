@@ -1,6 +1,6 @@
 import React from "react";
-import Heading from "../layout/Heading";
-import RenderWeather from "./RenderWeather";
+import Heading from "../common/Heading";
+import RenderTemp from "./RenderTemp";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
         Weather app
       </Heading>
 
-      <RenderWeather />
+      <RenderTemp />
     </>
   );
 }

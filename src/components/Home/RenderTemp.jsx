@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BASE_URL, LAT_PARAM, LON_PARAM } from "../../utils/constants/api";
-import { header } from "../../utils/constants/headers";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "../../utils/constants/TemperatureValidation";
+import { BASE_URL, LAT_PARAM, LON_PARAM } from "../constants/api";
+import { header } from "../constants/headers";
 import TemperatureChart from "../Charts/TemperatureChart";
 import AlertMessage from "../common/AlertMessage";
 import TemperatureForm from "../Forms/TemperatureForm";
@@ -11,6 +8,7 @@ import Loader from "../common/Loader";
 
 const defaultValue = "0";
 const errorMessage = "An error occured";
+const labelText = "Temperature per hour";
 
 export default function RenderWeather() {
   const [loading, setLoading] = useState(true);
@@ -19,17 +17,6 @@ export default function RenderWeather() {
   const [lon, setLon] = useState(defaultValue);
 
   //   Form
-  const defaultValues = {
-    lat: defaultValue,
-    lon: defaultValue,
-  };
-
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({ resolver: yupResolver(schema), defaultValues });
-
   function onSubmit(values) {
     const latData = values.lat;
     setLat(latData);
@@ -65,7 +52,7 @@ export default function RenderWeather() {
               labels: time,
               datasets: [
                 {
-                  label: "Temperature per hour",
+                  label: labelText,
                   data: temperature,
                   fill: false,
                   borderColor: "#E5B073",
@@ -88,22 +75,9 @@ export default function RenderWeather() {
     [WEATHER_URL]
   );
 
-  const getFormErrorMessage = (name) => {
-    return (
-      errors[name] && (
-        <small className="p-error block mt-2">{errors[name].message}</small>
-      )
-    );
-  };
-
   return (
     <div className="flex flex-column column-gap-8">
-      <TemperatureForm
-        onSubmit={handleSubmit(onSubmit)}
-        control={control}
-        errorMsgLat={getFormErrorMessage("lat")}
-        errorMsgLon={getFormErrorMessage("lon")}
-      />
+      <TemperatureForm onSubmit={onSubmit} />
 
       {error ? <AlertMessage severity="error" text={error} /> : ""}
       {loading ? <Loader /> : <TemperatureChart data={chartData} />}

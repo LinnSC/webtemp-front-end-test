@@ -1,5 +1,5 @@
-import Home from "./components/home/Home";
-import Layout from "./components/layout/Layout";
+import Home from "./components/Home/Home";
+import Layout from "./components/Layout/Layout";
 
 import "./styles/global.scss";
 

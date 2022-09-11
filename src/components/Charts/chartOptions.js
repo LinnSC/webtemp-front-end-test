@@ -1,28 +1,32 @@
+const labelsColor = "#084a42";
+const ticksColor = "#0b655b";
+const gridColor = "#C2D6D8";
+
 export const chartOptions = {
   maintainAspectRatio: false,
   aspectRatio: 0.5,
   plugins: {
     legend: {
       labels: {
-        color: "#0b655b",
+        color: labelsColor,
       },
     },
   },
   scales: {
     x: {
       ticks: {
-        color: "#0b655b",
+        color: ticksColor,
       },
       grid: {
-        color: "#C2D6D8",
+        color: gridColor,
       },
     },
     y: {
       ticks: {
-        color: "#0b655b",
+        color: ticksColor,
       },
       grid: {
-        color: "#C2D6D8",
+        color: gridColor,
       },
     },
   },
