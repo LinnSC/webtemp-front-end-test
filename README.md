@@ -3,14 +3,13 @@
 ---
 
 ## Description
-Webtemp frontend test case.
 
+Webtemp frontend test case.
 
 ## Built With
 
 - [React.js](https://reactjs.org/)
 - [PrimeReact](https://www.primefaces.org/primereact/)
-
 
 ## Getting Started
 
@@ -45,6 +44,4 @@ If you want to contibute to this project you have to make sure to open a pull re
 
 ## Contact
 
-You can contact me on Linkedin!
-
-[My LinkedIn page](https://www.linkedin.com/in/linn-corneliussen-246b0b56/)
+You can contact me on [Linkedin](https://www.linkedin.com/in/linn-corneliussen-246b0b56/)
