@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { InputText } from "primereact/inputtext";
 import { Controller } from "react-hook-form";
 import { classNames } from "primereact/utils";
-import FormStyles from "./Form.module.scss";
+import FormStyles from "./form.module.scss";
 
 export default function TextInput({ label, control, name }) {
   return (
