@@ -1,22 +1,12 @@
-import "chart.js/auto";
-import { Chart } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineController,
-  LineElement,
-  PointElement,
-  LinearScale,
-  Title,
-} from "chart.js";
-
+import { Chart } from "primereact/chart";
 import { chartOptions } from "./chartOptions";
-
-ChartJS.register(LineController, LineElement, PointElement, LinearScale, Title);
 
 export default function TemperatureChart({ data }) {
   return (
-    <div className="card mt-8">
-      <Chart type="line" data={data} options={chartOptions} />
+    <div className="card mt-8 flex justify-content-center">
+      <div className="w-11 md:w-10 lg:w-9 xl:w-6">
+        <Chart type="line" data={data} options={chartOptions} />
+      </div>
     </div>
   );
 }

@@ -10,10 +10,10 @@ export default function TemperatureForm({
   errorMsgLon,
 }) {
   return (
-    <div className="flex  justify-content-center ">
+    <div className="flex justify-content-center ">
       <form
         onSubmit={onSubmit}
-        className="flex flex-column justify-content-center row-gap-3 md:row-gap-5 w-12 sm:w-10 lg:w-7 xl:w-6"
+        className="flex flex-column justify-content-center row-gap-3 md:row-gap-5 w-12 sm:w-8 lg:w-6 xl:w-4"
       >
         <div className="flex flex-column">
           <TextInput label="Latitude" control={control} name="lat" />

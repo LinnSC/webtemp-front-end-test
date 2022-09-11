@@ -1,17 +1,4 @@
 export const chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: true,
-    },
-    title: {
-      display: true,
-      text: "Temperature per hour",
-    },
-  },
-};
-
-const tempOptions = {
   maintainAspectRatio: false,
   aspectRatio: 0.5,
   plugins: {

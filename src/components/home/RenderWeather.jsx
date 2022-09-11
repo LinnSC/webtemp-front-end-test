@@ -39,12 +39,11 @@ export default function RenderWeather() {
   }
 
   // Chart
-
-  const WEATHER_URL = BASE_URL + LAT_PARAM + lat + LON_PARAM + lon;
-
   const [chartData, setChartData] = useState({
     datasets: [],
   });
+
+  const WEATHER_URL = BASE_URL + LAT_PARAM + lat + LON_PARAM + lon;
 
   useEffect(
     function () {
@@ -68,9 +67,10 @@ export default function RenderWeather() {
                 {
                   label: "Temperature per hour",
                   data: temperature,
-                  backgroundColor: "rgba(229, 176, 115, 0.919)",
+                  fill: false,
                   borderColor: "#E5B073",
-                  borderWidth: 2,
+                  backgroundColor: "rgba(229, 176, 115, 0.919)",
+                  tension: 0.5,
                 },
               ],
             });

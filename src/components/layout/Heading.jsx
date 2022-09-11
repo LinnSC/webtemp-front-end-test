@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function Heading({ size = "1", children, className }) {
+export default function Heading({ size = "1", children, className }) {
   const Heading = `h${size}`;
 
   return <Heading className={className}>{children}</Heading>;
@@ -11,5 +11,3 @@ Heading.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.node,
 };
-
-export default Heading;
